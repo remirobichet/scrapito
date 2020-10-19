@@ -24,11 +24,21 @@ export default {
         href:
           'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>',
       },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap',
+      },
     ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['@/assets/css/main.css'],
+
+  bootstrapVue: {
+    bootstrapCSS: false,
+    bootstrapVueCSS: false,
+  },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [],
