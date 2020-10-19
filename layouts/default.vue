@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title">scrapito</h1>
+    <h1 class="title">📡 Scrapito</h1>
     <Nuxt />
   </div>
 </template>
