@@ -36,7 +36,12 @@
         <b-card :title="item.title" class="my-3">
           <b-card-text>{{ item.url }}</b-card-text>
           <b-card-text>{{ item.element }}</b-card-text>
-          <b-link href="#" class="card-link">See results</b-link>
+          <nuxt-link
+            :to="'/scrape/' + item.id"
+            class="card-link"
+            v-if="item.id"
+            >See results</nuxt-link
+          >
         </b-card>
       </b-card-group>
     </b-container>
