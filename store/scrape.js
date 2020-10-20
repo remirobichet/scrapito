@@ -18,3 +18,9 @@ export const mutations = {
     }
   },
 }
+
+export const getters = {
+  getScrapeById: (state) => (id) => {
+    return state.list.find((todo) => todo.id === id)
+  },
+}
