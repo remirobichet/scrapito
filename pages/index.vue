@@ -50,8 +50,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import global from "~/mixins/global"
 
 export default Vue.extend({
+  mixins: [global],
   beforeCreate() {
     this.$store.commit('scrape/initialiseStore')
   },
@@ -63,6 +65,9 @@ export default Vue.extend({
   methods: {
     addScrape() {
       const newScrape = {
+        // https://github.com/vuejs/vue/issues/8721
+        // Ugly workaround
+        id: (this as any).uuid(),
         title: ((this.$refs.addScrapeTitle as Vue).$el as HTMLInputElement)
           .value,
         url: ((this.$refs.addScrapeUrl as Vue).$el as HTMLInputElement).value,
