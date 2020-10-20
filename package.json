@@ -6,7 +6,9 @@
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
-    "generate": "nuxt-ts generate"
+    "generate": "nuxt-ts generate",
+    "netlify:dev": "netlify dev",
+    "netlify:function:build": "netlify functions:build"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.0",
@@ -22,6 +24,7 @@
     "@nuxt/typescript-build": "^2.0.3",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "netlify-cli": "^2.65.6",
     "prettier": "^2.1.2"
   }
 }
