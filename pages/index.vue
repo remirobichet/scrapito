@@ -1,40 +1,35 @@
 <template>
   <div>
     <b-container class="mb-5">
-      <b-form-group label-cols="4" label-cols-lg="2" label="New scrape">
-        <b-form-group
-          label-cols="4"
-          label-cols-lg="2"
-          label="Title : "
-          label-for="input-title"
-        >
-          <b-form-input id="input-title" ref="addScrapeTitle"></b-form-input>
-        </b-form-group>
-        <b-form-group
-          label-cols="4"
-          label-cols-lg="2"
-          label="Url : "
-          label-for="input-url"
-        >
-          <b-form-input
-            id="input-url"
-            type="url"
-            ref="addScrapeUrl"
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          label-cols="4"
-          label-cols-lg="2"
-          label="Element target : "
-          label-for="input-element"
-        >
-          <b-form-input
-            id="input-element"
-            ref="addScrapeElement"
-          ></b-form-input>
-        </b-form-group>
-        <b-button variant="outline-primary" @click="addScrape">Add</b-button>
+      <b-form-group
+        label-cols="4"
+        label-cols-lg="2"
+        label="Title : "
+        label-for="input-title"
+      >
+        <b-form-input id="input-title" ref="addScrapeTitle"></b-form-input>
       </b-form-group>
+      <b-form-group
+        label-cols="4"
+        label-cols-lg="2"
+        label="Url : "
+        label-for="input-url"
+      >
+        <b-form-input
+          id="input-url"
+          type="url"
+          ref="addScrapeUrl"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group
+        label-cols="4"
+        label-cols-lg="2"
+        label="Element target : "
+        label-for="input-element"
+      >
+        <b-form-input id="input-element" ref="addScrapeElement"></b-form-input>
+      </b-form-group>
+      <b-button variant="outline-primary" @click="addScrape">Add</b-button>
     </b-container>
     <b-container class="mb-5">
       <b-card-group v-for="(item, idx) in scrape" v-bind:key="idx">
@@ -50,7 +45,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import global from "~/mixins/global"
+import global from '~/mixins/global'
 
 export default Vue.extend({
   mixins: [global],
