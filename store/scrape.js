@@ -9,6 +9,12 @@ export const mutations = {
       localStorage.setItem('scrape', JSON.stringify(state.list))
     }
   },
+  import(state, value) {
+    state.list = JSON.parse(value)
+    if (process.browser) {
+      localStorage.setItem('scrape', value)
+    }
+  },
   remove(state, id) {
     state.list.splice(
       state.list.find((el) => el.id == id),
