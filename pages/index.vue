@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-container class="mb-5">
+      <h4 class="mb-3">Add a scrape</h4>
       <b-form-group
         label-cols="4"
         label-cols-lg="2"
@@ -31,6 +32,7 @@
       </b-form-group>
       <b-button variant="outline-primary" @click="addScrape">Add</b-button>
     </b-container>
+    <ConfigrationOptions />
     <b-container class="mb-5">
       <b-card-group v-for="(item, idx) in scrape" v-bind:key="idx">
         <b-card :title="item.title" class="my-3">
@@ -50,9 +52,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import global from '~/mixins/global'
+import global from '@/mixins/global'
+
+import ConfigrationOptions from '@/components/ConfigrationOptions.vue'
 
 export default Vue.extend({
+  components: {
+    ConfigrationOptions,
+  },
   mixins: [global],
   beforeCreate() {
     this.$store.commit('scrape/initialiseStore')
