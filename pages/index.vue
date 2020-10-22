@@ -36,12 +36,12 @@
         <b-card :title="item.title" class="my-3">
           <b-card-text>{{ item.url }}</b-card-text>
           <b-card-text>{{ item.element }}</b-card-text>
-          <nuxt-link
-            :to="'/scrape/' + item.id"
-            class="card-link"
-            v-if="item.id"
+          <nuxt-link :to="'/scrape/' + item.id" class="card-link" v-if="item.id"
             >See results</nuxt-link
           >
+          <b-button size="sm" variant="danger" class="float-right" @click="deleteScrape(item.id)" v-if="item.id">
+            Delete <b-icon icon="trash" aria-hidden="true"></b-icon>
+          </b-button>
         </b-card>
       </b-card-group>
     </b-container>
@@ -79,6 +79,9 @@ export default Vue.extend({
       ;((this.$refs.addScrapeUrl as Vue).$el as HTMLInputElement).value = ''
       ;((this.$refs.addScrapeElement as Vue).$el as HTMLInputElement).value = ''
     },
+    deleteScrape(index: string) {
+      this.$store.commit('scrape/remove', index)
+    }
   },
 })
 </script>
