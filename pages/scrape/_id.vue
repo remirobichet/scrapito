@@ -11,7 +11,9 @@
     </b-container>
     <b-container class="mb-5" v-if="response">
       <b-card title="Result" class="my-3">
-        <b-card-text>{{ response }}</b-card-text>
+        <b-card-text>
+          <div v-html="response"></div>
+        </b-card-text>
       </b-card>
     </b-container>
     <b-container class="mb-5" v-if="error">
