@@ -9,6 +9,9 @@
         >
       </b-card>
     </b-container>
+    <b-container class="mb-5" v-if="loading">
+      <b-spinner label="Spinning"></b-spinner>
+    </b-container>
     <b-container class="mb-5" v-if="response">
       <b-card title="Result" class="my-3">
         <b-card-text>
@@ -17,7 +20,7 @@
       </b-card>
     </b-container>
     <b-container class="mb-5" v-if="error">
-      <b-card title="Result" class="my-3">
+      <b-card title="Error" class="my-3">
         <b-card-text>{{ error }}</b-card-text>
       </b-card>
     </b-container>
@@ -35,6 +38,7 @@ export default Vue.extend({
     return {
       response: null,
       error: null,
+      loading: false,
     }
   },
   computed: {
@@ -49,13 +53,21 @@ export default Vue.extend({
   methods: {
     async postScrape(url: string, element: string) {
       try {
-        const res = await this.$axios.$post('/.netlify/functions/scrape', {
-          url,
-          element,
-        })
-        this.response = res
+        this.loading = true
+        this.response = null
         this.error = null
+        await this.$axios
+          .$post('/.netlify/functions/scrape', {
+            url,
+            element,
+          })
+          .then((res) => {
+            this.loading = false
+            this.response = res
+            this.error = null
+          })
       } catch (e) {
+        this.loading = false
         this.error = e.response
         this.response = null
       }
