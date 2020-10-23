@@ -22,8 +22,8 @@
     <b-button v-b-modal.modal-export variant="outline-primary">
       Export <b-icon icon="upload" aria-hidden="true"> </b-icon
     ></b-button>
-    <b-modal id="modal-export" centered title="Import configuration">
-      <p class="my-4">EXPORT</p>
+    <b-modal id="modal-export" centered title="Export configuration">
+      <code>{{ exportConfig }}</code>
     </b-modal>
   </b-container>
 </template>
@@ -37,6 +37,11 @@ export default Vue.extend({
   mixins: [global],
   beforeCreate() {
     this.$store.commit('scrape/initialiseStore')
+  },
+  computed: {
+    exportConfig(): string {
+      return JSON.stringify(this.$store.state.scrape.list)
+    },
   },
   methods: {
     importConfig() {
