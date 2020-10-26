@@ -29,10 +29,18 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { VueConstructor } from 'vue'
 import global from '@/mixins/global'
 
-export default Vue.extend({
+interface IComponent {
+  $refs: {
+    jsonImport: Vue
+  }
+  isJson(str: string): boolean
+  $bvToast: any
+}
+
+export default (Vue as VueConstructor<Vue & IComponent>).extend({
   name: 'ConfigrationOptions',
   mixins: [global],
   beforeCreate() {
@@ -45,9 +53,8 @@ export default Vue.extend({
   },
   methods: {
     importConfig() {
-      const jsonImport = ((this.$refs.jsonImport as Vue)
-        .$el as HTMLInputElement).value
-      if ((this as any).isJson(jsonImport)) {
+      const jsonImport = (this.$refs.jsonImport.$el as HTMLInputElement).value
+      if (this.isJson(jsonImport)) {
         this.$store.commit('scrape/import', jsonImport)
         this.makeToast('Import', 'success')
       } else {
@@ -56,7 +63,7 @@ export default Vue.extend({
     },
     makeToast(action: string, variant: string) {
       const textFromVariant = variant === 'success' ? 'sucess' : 'failed'
-      ;(this as any).$bvToast.toast(`${action} ${textFromVariant}`, {
+      this.$bvToast.toast(`${action} ${textFromVariant}`, {
         title: `Configuration options`,
         variant: variant,
         solid: true,

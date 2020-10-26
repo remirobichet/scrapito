@@ -41,7 +41,13 @@
           <nuxt-link :to="'/scrape/' + item.id" class="card-link" v-if="item.id"
             >See results</nuxt-link
           >
-          <b-button size="sm" variant="danger" class="float-right" @click="deleteScrape(item.id)" v-if="item.id">
+          <b-button
+            size="sm"
+            variant="danger"
+            class="float-right"
+            @click="deleteScrape(item.id)"
+            v-if="item.id"
+          >
             Delete <b-icon icon="trash" aria-hidden="true"></b-icon>
           </b-button>
         </b-card>
@@ -51,12 +57,21 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { VueConstructor } from 'vue'
 import global from '@/mixins/global'
 
 import ConfigrationOptions from '@/components/ConfigrationOptions.vue'
 
-export default Vue.extend({
+interface IComponent {
+  $refs: {
+    addScrapeTitle: Vue
+    addScrapeUrl: Vue
+    addScrapeElement: Vue
+  }
+  uuid(): string
+}
+
+export default (Vue as VueConstructor<Vue & IComponent>).extend({
   components: {
     ConfigrationOptions,
   },
@@ -72,23 +87,19 @@ export default Vue.extend({
   methods: {
     addScrape() {
       const newScrape = {
-        // https://github.com/vuejs/vue/issues/8721
-        // Ugly workaround
-        id: (this as any).uuid(),
-        title: ((this.$refs.addScrapeTitle as Vue).$el as HTMLInputElement)
-          .value,
-        url: ((this.$refs.addScrapeUrl as Vue).$el as HTMLInputElement).value,
-        element: ((this.$refs.addScrapeElement as Vue).$el as HTMLInputElement)
-          .value,
+        id: this.uuid(),
+        title: (this.$refs.addScrapeTitle.$el as HTMLInputElement).value,
+        url: (this.$refs.addScrapeUrl.$el as HTMLInputElement).value,
+        element: (this.$refs.addScrapeElement.$el as HTMLInputElement).value,
       }
       this.$store.commit('scrape/add', newScrape)
-      ;((this.$refs.addScrapeTitle as Vue).$el as HTMLInputElement).value = ''
-      ;((this.$refs.addScrapeUrl as Vue).$el as HTMLInputElement).value = ''
-      ;((this.$refs.addScrapeElement as Vue).$el as HTMLInputElement).value = ''
+      ;(this.$refs.addScrapeTitle.$el as HTMLInputElement).value = ''
+      ;(this.$refs.addScrapeUrl.$el as HTMLInputElement).value = ''
+      ;(this.$refs.addScrapeElement.$el as HTMLInputElement).value = ''
     },
     deleteScrape(index: string) {
       this.$store.commit('scrape/remove', index)
-    }
+    },
   },
 })
 </script>
